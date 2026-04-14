@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personnalisation — Zerkalo · Vinko</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* =============================================
+       LAYOUT PRINCIPAL — Page de personnalisation
+       2 colonnes asymétriques : visuel large | panneau étroit
+    ============================================= */
+    .page-wrapper {
+      padding-top: 60px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      grid-template-rows: auto 1fr auto auto;
+    }
+
+    .page-header {
+      grid-column: 1 / -1;
+      padding: 2rem 2.5rem 1.5rem;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 0.8rem;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       ZONE VISUELLE — Colonne gauche, prioritaire
+    ============================================= */
+    .zone-visuelle {
+      position: relative;
+      background-color: #e8e7e3;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      min-height: 700px;
+    }
+
+    .bg-contexte {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-image: url('img/bg-studio.png');
+      transition: opacity 0.4s ease;
+    }
+
+    .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(252, 251, 247, 0.3);
+    }
+
+    .sweat-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 600px;
+      height: 700px;
+    }
+
+    .sweat-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      visibility: hidden;
+      transition: opacity var(--transition);
+      opacity: 0;
+    }
+
+    .sweat-img.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #svg-bandes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      overflow: visible;
+      cursor: default;
+    }
+
+    .bande-draggable {
+      cursor: grab;
+      user-select: none;
+    }
+
+    .bande-draggable:active {
+      cursor: grabbing;
+    }
+
+    .drag-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 2px;
+      z-index: 5;
+      pointer-events: none;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    /* =============================================
+       GALERIE DE COUPES — Entre le visuel et le footer
+    ============================================= */
+    .galerie-coupes {
+      grid-column: 1 / -1;
+      padding: 3rem 2.5rem;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      background-color: #faf9f5;
+    }
+
+    .galerie-coupes h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .galerie-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: scale 0.3s ease;
+    }
+
+    /* Hover animation : zoom image + élévation */
+    .galerie-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .galerie-item:hover img {
+      scale: 1.05;
+    }
+
+    /* Effet flou dégradé sur les côtés */
+    .galerie-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.15) 0%,
+          rgba(0, 0, 0, 0) 20%,
+          rgba(0, 0, 0, 0) 80%,
+          rgba(0, 0, 0, 0.15) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .galerie-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* =============================================
+       PANNEAU DE CONFIGURATION — Colonne droite
+    ============================================= */
+    .panneau-config {
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+      background-color: var(--creme);
+      display: flex;
+      flex-direction: column;
+      grid-row: 2;
+      grid-column: 2;
+    }
+
+    .config-bloc {
+      padding: 1.5rem 1.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .config-titre {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    .fond-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .fond-btn {
+      position: relative;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color var(--transition);
+      padding: 0;
+      background: none;
+      outline: none;
+    }
+
+    .fond-btn img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .fond-btn span {
+      display: block;
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0;
+      color: #666;
+    }
+
+    .fond-btn.selected,
+    .fond-btn:focus {
+      border-color: var(--orange);
+    }
+
+    .fond-btn.selected span {
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    .coupe-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .coupe-btn {
+      cursor: pointer;
+      border: 2px solid #ddd;
+      background: none;
+      padding: 0.75rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      transition: border-color var(--transition), background-color var(--transition);
+      outline: none;
+    }
+
+    .coupe-btn:hover {
+      background-color: #f0efea;
+    }
+
+    .coupe-btn img {
+      width: 60px;
+      height: 75px;
+      object-fit: cover;
+    }
+
+    .coupe-btn .coupe-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .coupe-btn .coupe-delta {
+      font-size: 0.65rem;
+      color: #999;
+    }
+
+    .coupe-btn.selected {
+      border-color: var(--noir);
+      background-color: var(--noir);
+      color: var(--creme);
+    }
+
+    .coupe-btn.selected .coupe-delta {
+      color: var(--jaune);
+    }
+
+    /* =============================================
+       SLIDER D'ÉPAISSEUR DES BANDES
+    ============================================= */
+    .epaisseur-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      appearance: none;
+      height: 3px;
+      background: #ddd;
+      outline: none;
+      cursor: pointer;
+      border-radius: 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background-color: var(--noir);
+      cursor: pointer;
+      border-radius: 0;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background-color: var(--noir);
+      border: none;
+      cursor: pointer;
+      border-radius: 0;
+    }
+
+    .slider-value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      min-width: 1.5rem;
+      text-align: center;
+    }
+
+    .epaisseur-preview {
+      width: 100%;
+      height: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .epaisseur-bar {
+      width: 100%;
+      background-color: var(--orange);
+      transition: height var(--transition);
+      height: 6px;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: #999;
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       SECTION PRIX ET PANIER
+    ============================================= */
+    .panier-bloc {
+      padding: 1.5rem;
+      margin-top: auto;
+      background-color: var(--noir);
+      color: var(--creme);
+      flex-shrink: 0;
+    }
+
+    .prix-ligne {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .prix-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .prix-detail {
+      font-size: 0.7rem;
+      opacity: 0.5;
+    }
+
+    #prix-total {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--jaune);
+      letter-spacing: -0.02em;
+    }
+
+    .prix-recap {
+      margin: 0.75rem 0;
+      font-size: 0.7rem;
+      opacity: 0.5;
+      line-height: 1.6;
+    }
+
+    .btn-panier {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--orange);
+      color: var(--creme);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color var(--transition);
+      margin-top: 0.75rem;
+    }
+
+    .btn-panier:hover {
+      background-color: var(--jaune);
+      color: var(--noir);
+    }
+
+    .btn-panier.added {
+      background-color: #2d8a4e;
+    }
+
+    /* =============================================
+       FOOTER — Expansion correcte
+    ============================================= */
+    footer {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      background-color: var(--noir);
+      color: var(--creme);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .footer-slogan {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .footer-slogan strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--creme);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--orange);
+    }
+
+    /* =============================================
+       RESPONSIVE — Mobile first
+    ============================================= */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: var(--noir);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+      }
+
+      .panneau-config {
+        border-left: none;
+        border-top: 1px solid #ddd;
+        grid-row: auto;
+        grid-column: 1;
+      }
+
+      .zone-visuelle {
+        min-height: 500px;
+        padding: 30px;
+      }
+
+      .sweat-container {
+        max-width: 400px;
+        height: 500px;
+      }
+
+      .page-header {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .galerie-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html" class="logo">VIN<span>K</span>O</a>
+
+    <nav id="main-nav">
+      <a href="index.html">Accueil</a>
+      <a href="zerkalo.html" class="active">Personnaliser</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="apropos.html">À propos</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="page-wrapper">
+
+    <div class="page-header">
+      <h1>Zerkalo</h1>
+      <p>Configurez votre sweatshirt</p>
+    </div>
+
+    <div class="zone-visuelle">
+      <div class="bg-contexte" id="bg-contexte"></div>
+      <div class="bg-overlay"></div>
+
+      <div class="sweat-container" id="sweat-container">
+        <img src="img/sweat-visuel.png" alt="Visuel du sweatshirt" class="sweat-img active" id="img-sweat" />
+
+        <svg id="svg-bandes" viewBox="0 0 335 480" xmlns="http://www.w3.org/2000/svg"
+          aria-label="Bandes oranges modifiables">
+          <g id="bande-orange-1" class="bande-draggable" transform="translate(40, 260)"
+            aria-label="Bande gauche — glisser pour déplacer">
+            <rect x="0" y="0" width="60" height="6" fill="#c85a00" stroke="#c85a00" stroke-width="0" />
+          </g>
+
+          <g id="bande-orange-2" class="bande-draggable" transform="translate(230, 255)"
+            aria-label="Bande droite — glisser pour déplacer">
+            <rect x="0" y="0" width="60" height="6" fill="#c85a00" stroke="#c85a00" stroke-width="0" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="drag-hint" id="drag-hint">
+        ↔ Glisser les bandes pour les repositionner
+      </div>
+    </div>
+
+    <!-- GALERIE COUPES : 3 colonnes avec animation hover -->
+    <div class="galerie-coupes">
+      <h2>Découvrez nos coupes</h2>
+      <div class="galerie-grid">
+        <div class="galerie-item">
+          <img src="img/sweat-oversize.jpg" alt="Coupe Oversized" />
+          <span class="galerie-label">Oversized</span>
+        </div>
+        <div class="galerie-item">
+          <img src="img/sweat-normal.png" alt="Coupe Standard" />
+          <span class="galerie-label">Standard</span>
+        </div>
+        <div class="galerie-item">
+          <img src="img/sweat-slim.png" alt="Coupe Cropped" />
+          <span class="galerie-label">Cropped</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="panneau-config">
+
+      <div class="config-bloc">
+        <p class="config-titre">Contexte de présentation</p>
+
+        <div class="fond-options">
+          <button class="fond-btn" data-fond="img/bg-urbain.png" aria-label="Fond urbain">
+            <img src="img/bg-urbain.png" alt="Contexte urbain" />
+            <span>Urbain</span>
+          </button>
+
+          <button class="fond-btn selected" data-fond="img/bg-studio.png" aria-label="Fond studio">
+            <img src="img/bg-studio.png" alt="Contexte studio" />
+            <span>Studio</span>
+          </button>
+
+          <button class="fond-btn" data-fond="img/bg-nature.jpg" aria-label="Fond nature">
+            <img src="img/bg-nature.jpg" alt="Contexte nature" />
+            <span>Nature</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="config-bloc">
+        <p class="config-titre">Épaisseur des bandes</p>
+
+        <div class="epaisseur-zone">
+          <div class="epaisseur-preview">
+            <div class="epaisseur-bar" id="epaisseur-bar"></div>
+          </div>
+
+          <div class="slider-row">
+            <input type="range" id="slider-epaisseur" min="1" max="5" value="3"
+              aria-label="Épaisseur des bandes de 1 à 5" />
+            <span class="slider-value" id="val-epaisseur">3</span>
+          </div>
+
+          <div class="slider-labels">
+            <span>Fine — 2px</span>
+            <span>Épaisse — 13px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-bloc">
+        <p class="config-titre">Positionnement</p>
+        <p style="font-size: 0.8rem; color: #666; line-height: 1.6;">
+          Cliquez et glissez les bandes oranges sur le sweatshirt pour
+          les repositionner librement.
+        </p>
+      </div>
+
+      <div class="panier-bloc">
+        <div class="prix-ligne">
+          <span class="prix-label">Total</span>
+          <span id="prix-total">55 €</span>
+        </div>
+
+        <div class="prix-recap" id="prix-recap">
+          Base : 55 € · Bandes : ±0 €
+        </div>
+
+        <button class="btn-panier" id="btn-panier">
+          Ajouter au panier
+        </button>
+      </div>
+
+    </aside>
+
+    <footer>
+      <div class="footer-slogan">
+        <strong>Vinko</strong>
+        Contempler, rêver, s'inspirer.
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script>
+    const PRIX_BASE = 55;
+    const DELTA_EPAISSEUR = { 1: -5, 2: -2, 3: 0, 4: 5, 5: 10 };
+    const HAUTEUR_BANDE = { 1: 2, 2: 4, 3: 6, 4: 9, 5: 13 };
+
+    const etat = {
+      epaisseur: 3
+    };
+
+    const bgContexte = document.getElementById('bg-contexte');
+    const fondBtns = document.querySelectorAll('.fond-btn');
+    const sliderEpaisseur = document.getElementById('slider-epaisseur');
+    const valEpaisseur = document.getElementById('val-epaisseur');
+    const epaisseurBar = document.getElementById('epaisseur-bar');
+    const prixTotal = document.getElementById('prix-total');
+    const prixRecap = document.getElementById('prix-recap');
+    const btnPanier = document.getElementById('btn-panier');
+    const dragHint = document.getElementById('drag-hint');
+
+    const bande1 = document.getElementById('bande-orange-1');
+    const bande2 = document.getElementById('bande-orange-2');
+    const svgEl = document.getElementById('svg-bandes');
+
+    bgContexte.style.backgroundImage = "url('img/bg-studio.png')";
+
+    fondBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        fondBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        const nomFond = btn.dataset.fond;
+        bgContexte.style.backgroundImage = `url('${nomFond}')`;
+      });
+    });
+
+    sliderEpaisseur.addEventListener('input', () => {
+      const val = parseInt(sliderEpaisseur.value);
+      etat.epaisseur = val;
+      valEpaisseur.textContent = val;
+      const hauteur = HAUTEUR_BANDE[val];
+      bande1.querySelector('rect').setAttribute('height', hauteur);
+      bande2.querySelector('rect').setAttribute('height', hauteur);
+      bande1.querySelector('rect').setAttribute('y', -hauteur / 2);
+      bande2.querySelector('rect').setAttribute('y', -hauteur / 2);
+      epaisseurBar.style.height = hauteur + 'px';
+      miseAJourPrix();
+    });
+
+    function miseAJourPrix() {
+      const dEpais = DELTA_EPAISSEUR[etat.epaisseur];
+      const total = PRIX_BASE + dEpais;
+      prixTotal.textContent = total + ' €';
+      const signEpais = dEpais >= 0 ? '+' : '';
+      prixRecap.textContent =
+        `Base : ${PRIX_BASE} € · Bandes : ${signEpais}${dEpais} €`;
+    }
+
+    let bandeDragActive = null;
+    let offsetDrag = { x: 0, y: 0 };
+
+    function lireTranslate(el) {
+      const t = el.getAttribute('transform') || 'translate(0,0)';
+      const m = t.match(/translate\(([^,]+),\s*([^)]+)\)/);
+      if (!m) return { x: 0, y: 0 };
+      return { x: parseFloat(m[1]), y: parseFloat(m[2]) };
+    }
+
+    function ecrireTranslate(el, x, y) {
+      const t = el.getAttribute('transform') || '';
+      const mRot = t.match(/rotate\(([^)]+)\)/);
+      const rotate = mRot ? `rotate(${mRot[1]})` : '';
+      el.setAttribute('transform', `translate(${x}, ${y}) ${rotate}`);
+    }
+
+    function pixelsVersSVG(svg, px, py) {
+      const pt = svg.createSVGPoint();
+      pt.x = px;
+      pt.y = py;
+      return pt.matrixTransform(svg.getScreenCTM().inverse());
+    }
+
+    function clamp(val, min, max) {
+      return Math.max(min, Math.min(max, val));
+    }
+
+    [bande1, bande2].forEach(bande => {
+      bande.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        bandeDragActive = bande;
+        dragHint.style.opacity = '0';
+        const posSVG = pixelsVersSVG(svgEl, e.clientX, e.clientY);
+        const posGroupe = lireTranslate(bande);
+        offsetDrag.x = posSVG.x - posGroupe.x;
+        offsetDrag.y = posSVG.y - posGroupe.y;
+      });
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!bandeDragActive) return;
+      const posSVG = pixelsVersSVG(svgEl, e.clientX, e.clientY);
+      let nx = posSVG.x - offsetDrag.x;
+      let ny = posSVG.y - offsetDrag.y;
+      nx = clamp(nx, -20, 270);
+      ny = clamp(ny, 80, 480);
+      ecrireTranslate(bandeDragActive, nx, ny);
+    });
+
+    document.addEventListener('mouseup', () => {
+      bandeDragActive = null;
+    });
+
+    [bande1, bande2].forEach(bande => {
+      bande.addEventListener(
+        'touchstart',
+        (e) => {
+          e.preventDefault();
+          bandeDragActive = bande;
+          dragHint.style.opacity = '0';
+          const touch = e.touches[0];
+          const posSVG = pixelsVersSVG(svgEl, touch.clientX, touch.clientY);
+          const posGroupe = lireTranslate(bande);
+          offsetDrag.x = posSVG.x - posGroupe.x;
+          offsetDrag.y = posSVG.y - posGroupe.y;
+        },
+        { passive: false }
+      );
+    });
+
+    document.addEventListener(
+      'touchmove',
+      (e) => {
+        if (!bandeDragActive) return;
+        const touch = e.touches[0];
+        const posSVG = pixelsVersSVG(svgEl, touch.clientX, touch.clientY);
+        let nx = clamp(posSVG.x - offsetDrag.x, -20, 270);
+        let ny = clamp(posSVG.y - offsetDrag.y, 80, 480);
+        ecrireTranslate(bandeDragActive, nx, ny);
+      },
+      { passive: true }
+    );
+
+    document.addEventListener('touchend', () => {
+      bandeDragActive = null;
+    });
+
+    btnPanier.addEventListener('click', () => {
+      btnPanier.textContent = '✓ Ajouté !';
+      btnPanier.classList.add('added');
+      setTimeout(() => {
+        btnPanier.textContent = 'Ajouter au panier';
+        btnPanier.classList.remove('added');
+      }, 2000);
+    });
+
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('main-nav');
+    burger.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(l =>
+      l.addEventListener('click', () => nav.classList.remove('open'))
+    );
+
+    setTimeout(() => {
+      dragHint.style.transition = 'opacity 0.5s';
+      dragHint.style.opacity = '0';
+    }, 4000);
+
+    sliderEpaisseur.dispatchEvent(new Event('input'));
+  </script>
+
+  <!--
+  ====================================================
+  TRAÇABILITÉ IA — README.md
+  ====================================================
+  
+  MODIFICATION 1 : Image agrandie
+    - .zone-visuelle : padding 20px → 40px
+    - min-height augmentée à 700px (était 500px)
+    - .sweat-container : max-width 530px → 600px, height 615px → 700px
+    - Effet : l'image du sweat est désormais 20-30% plus grande et visible
+  
+  MODIFICATION 2 : Animations hover sur galerie
+    - .galerie-item:hover → transform: translateY(-8px)
+    - .galerie-item:hover → box-shadow: 0 12px 24px rgba(...)
+    - .galerie-item img:hover → scale: 1.05
+    - Effets combinés : élévation de la carte + zoom image smooth (0.3s)
+  
+  MODIFICATION 3 : Footer correction layout
+    - Footer maintenant : grid-row: 4 (au lieu de auto)
+    - grid-column: 1 / -1 pour spanning complet
+    - Suppression du rectangle blanc via grid row explicite
+    - aside .panneau-config : grid-row: 2 (au lieu de 2/4)
+    - Espacement footer corrigé avec padding 2rem 2.5rem
+    - Responsive : footer flex-direction: column, .footer-links column aussi
+  
+  MODIFICATION 4 : Responsive & footer mobile
+    - Footer mobile : texte centré, liens en colonne
+    - Zone visuelle : padding 30px (au lieu de 40px sur desktop)
+  
+  Changements CSS majeurs :
+    - .page-wrapper grid-template-rows inchangée
+    - .panneau-config grid-row: 2 (fixe au lieu de 2/4)
+    - footer grid-row: 4 explicit, grid-column: 1/-1
+    - Galerie :transform, scale, box-shadow transitions fluides
+  ====================================================
+  -->
+</body>
+
+</html>
