@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vinko — Zerkalo</title>
+    <title>Vinko </title>
 
-    <!-- Google Fonts : Poppins pour le corps de texte -->
-    <!-- P22 Albers Three n'étant pas disponible sur Google Fonts, on simule avec une fonte display forte -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -19,7 +17,7 @@
   ============================================= -->
     <header>
         <!-- Logo Vinko : le K est accentué en jaune (clé visuelle) -->
-        <a href="index.html" class="logo">VIN<span>K</span>O</a>
+        <a href="index.html" class="logo">VINKO</a>
 
         <!-- Navigation principale -->
         <nav id="main-nav">
@@ -166,17 +164,29 @@
         <div class="galerie-preview-text">
             <h2>L'œuvre source</h2>
             <p>
-                Explorez la galerie des œuvres de Laszlo Moholy-Nagy (1918–1946),
-                source d'inspiration directe de la collection Zerkalo.
+                Explorez la galerie des œuvres de Laszlo Moholy-Nagy,
+                source d'inspiration directe du sweatshirt Zerkalo.
             </p>
         </div>
 
-        <!-- Miniatures simulées -->
+        <!-- Miniatures avec images réelles -->
         <div class="galerie-mini">
-            <div class="galerie-mini-item">Composition A, 1923</div>
-            <div class="galerie-mini-item">Space Modulator, 1940</div>
-            <div class="galerie-mini-item">K VII, 1922</div>
-            <div class="galerie-mini-item">Large Railway, 1920</div>
+            <div class="galerie-mini-item">
+                <img src="img/composition1923.jpg" alt="Composition, 1923" />
+                <span>Composition, 1923</span>
+            </div>
+            <div class="galerie-mini-item">
+                <img src="img/spacemodulator.jpg" alt="Space Modulator, 1940" />
+                <span>Space Modulator, 1940</span>
+            </div>
+            <div class="galerie-mini-item">
+                <img src="img/kvii.jpg" alt="K VII, 1922" />
+                <span>K VII, 1922</span>
+            </div>
+            <div class="galerie-mini-item">
+                <img src="img/radiorailway.jpg" alt="Large Railway, 1920" />
+                <span>Large Railway, 1920</span>
+            </div>
         </div>
 
         <a href="galerie.html" class="btn-primary">Voir la galerie complète</a>
@@ -228,14 +238,6 @@
   Prompt utilisé :
     "Page d'accueil Vinko/Zerkalo, charte constructiviste Moholy-Nagy,
     HTML/CSS/JS vanilla, responsive mobile-first, header+footer partagés."
- 
-  Modifications à faire par l'étudiant :
-    1. Remplacer la police display par P22 Albers Three (si disponible)
-       → Télécharger la fonte et l'importer via @font-face
-    2. Vérifier les chemins d'images (sweat-oversize.jpg, etc.)
-    3. Personnaliser les textes de description de la marque
-    4. Ajouter les vraies miniatures de Moholy-Nagy dans .galerie-mini
-    5. Mettre à jour les liens réseaux sociaux dans le footer
   ====================================================
   -->
 </body>

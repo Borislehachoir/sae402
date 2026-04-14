@@ -1,7 +1,4 @@
-/* =============================================
-       VARIABLES CSS — Charte graphique Vinko
-       Inspirée du constructivisme de Moholy-Nagy
-    ============================================= */
+
 @import url('https://db.onlinewebfonts.com/c/a619e5bedf077a8f8d3884809830a764?family=P22Albers-Three');
 
 :root {
@@ -17,9 +14,6 @@
     --font-body: 'Poppins', sans-serif;
 }
 
-/* =============================================
-       RESET & BASE
-    ============================================= */
 *,
 *::before,
 *::after {
@@ -39,10 +33,7 @@ body {
     overflow-x: hidden;
 }
 
-/* =============================================
-       HEADER — Navigation principale
-       Fond noir, logo à gauche, liens à droite
-    ============================================= */
+/*Header*/
 header {
     position: fixed;
     /* reste visible en scrollant */
@@ -58,7 +49,6 @@ header {
     height: 60px;
 }
 
-/* Logo : lettres V I N K O avec accent jaune sur le K */
 .logo {
     font-family: var(--font-display);
     font-size: 1.5rem;
@@ -68,13 +58,8 @@ header {
     text-decoration: none;
 }
 
-.logo span {
-    color: var(--jaune);
-}
 
-/* accentuation constructiviste */
-
-/* Navigation links */
+/* Barre de navigation */
 nav {
     display: flex;
     gap: 2rem;
@@ -91,7 +76,6 @@ nav a {
     transition: color var(--transition);
 }
 
-/* Soulignement animé au hover */
 nav a::after {
     content: '';
     position: absolute;
@@ -111,7 +95,7 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* Burger menu mobile */
+/* menu hamburger */
 .burger {
     display: none;
     flex-direction: column;
@@ -129,14 +113,10 @@ nav a:hover::after {
     transition: var(--transition);
 }
 
-/* =============================================
-       HERO SECTION
-       Plein écran avec image en fond + overlay
-    ============================================= */
+/* le main */
 .hero {
     min-height: 100vh;
     padding-top: 60px;
-    /* compense le header fixe */
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -144,7 +124,6 @@ nav a:hover::after {
     overflow: hidden;
 }
 
-/* Bande décorative verticale façon Moholy-Nagy */
 .hero::before {
     content: '';
     position: absolute;
@@ -156,13 +135,11 @@ nav a:hover::after {
     opacity: 0.4;
 }
 
-/* Colonne texte */
 .hero-text {
     padding: 4rem 3rem 4rem 4rem;
     z-index: 1;
 }
 
-/* Étiquette surtitle */
 .hero-label {
     font-size: 0.7rem;
     letter-spacing: 0.3em;
@@ -182,7 +159,7 @@ nav a:hover::after {
     background-color: var(--orange);
 }
 
-/* Titre principal — très grand, impact visuel fort */
+/* Titre principal*/
 .hero-title {
     font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 7rem);
@@ -192,7 +169,7 @@ nav a:hover::after {
     margin-bottom: 2rem;
 }
 
-/* Le mot ZERKALO en orange pour contraster */
+/* ZERKALOOOOOO */
 .hero-title .accent {
     color: var(--orange);
 }
@@ -205,14 +182,12 @@ nav a:hover::after {
     margin-bottom: 2.5rem;
 }
 
-/* Groupe de boutons CTA */
 .hero-cta {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
 }
 
-/* Bouton primaire */
 .btn-primary {
     display: inline-block;
     padding: 0.9rem 2rem;
@@ -230,7 +205,6 @@ nav a:hover::after {
     background-color: var(--orange);
 }
 
-/* Bouton secondaire (outline) */
 .btn-secondary {
     display: inline-block;
     padding: 0.9rem 2rem;
@@ -249,7 +223,7 @@ nav a:hover::after {
     color: var(--creme);
 }
 
-/* Colonne image du héros */
+/* Colonne image du main la */
 .hero-image {
     position: relative;
     height: 100vh;
@@ -266,7 +240,6 @@ nav a:hover::after {
     object-position: top center;
 }
 
-/* Badge flottant sur l'image */
 .hero-badge {
     position: absolute;
     bottom: 2rem;
@@ -284,16 +257,13 @@ nav a:hover::after {
     color: var(--jaune);
 }
 
-/* Bande décorative orange horizontale (référence Moholy-Nagy) */
 .bande-deco {
     width: 100%;
     height: 4px;
     background: linear-gradient(to right, var(--orange) 60%, var(--jaune) 100%);
 }
 
-/* =============================================
-       SECTION PRÉSENTATION — Concept
-    ============================================= */
+/* section presentation concept */
 .section-concept {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -336,9 +306,7 @@ nav a:hover::after {
     max-width: 55ch;
 }
 
-/* =============================================
-       SECTION PRODUIT — Grille 3 colonnes
-    ============================================= */
+/* section produit avec la version oversize, pas oversize, etc. */
 .section-produit {
     padding: 5rem 4rem;
     border-top: 1px solid #ddd;
@@ -363,12 +331,10 @@ nav a:hover::after {
     background-color: #ddd;
 }
 
-/* Grille des 3 coupes */
 .coupe-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    /* joints noirs */
     background-color: var(--noir);
 }
 
@@ -407,9 +373,7 @@ nav a:hover::after {
     font-weight: 500;
 }
 
-/* =============================================
-       SECTION MARQUE — Inspiration Moholy-Nagy
-    ============================================= */
+/* Section marque / "ouais moholy-nagy m'a inspiré pour faire ci, ça, et machin, et bidule" enfin bref*/
 .section-marque {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -427,7 +391,6 @@ nav a:hover::after {
     overflow: hidden;
 }
 
-/* Composition géométrique décorative inspirée Moholy-Nagy */
 .moholy-composition {
     position: relative;
     width: 200px;
@@ -486,9 +449,7 @@ nav a:hover::after {
     margin-bottom: 2rem;
 }
 
-/* =============================================
-       SECTION GALERIE PREVIEW — lien vers galerie.html
-    ============================================= */
+/* PREVIEW DE GALERIE (sur la page d'accueil) */
 .section-galerie-preview {
     padding: 5rem 4rem;
     border-top: 1px solid #ddd;
@@ -513,7 +474,7 @@ nav a:hover::after {
     color: #666;
 }
 
-/* Miniatures des œuvres (simulées par des blocs colorés) */
+/* oeuvres en miniatures */
 .galerie-mini {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -521,40 +482,46 @@ nav a:hover::after {
     background-color: var(--noir);
     margin-bottom: 3rem;
     max-width: 800px;
+    height: 180px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Chaque mini est un bloc de couleur avec un numéro */
 .galerie-mini-item {
-    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: flex-end;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-size: 0.65rem;
     color: var(--creme);
     font-weight: 500;
-}
-
-.galerie-mini-item:nth-child(1) {
     background-color: #1a1a1a;
 }
 
-.galerie-mini-item:nth-child(2) {
-    background-color: var(--gris-bleu);
+.galerie-mini-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
-.galerie-mini-item:nth-child(3) {
-    background-color: #2a2a2a;
+.galerie-mini-item:hover {
+    transform: scale(1.1);
+    transition: transform var(--transition);
 }
 
-.galerie-mini-item:nth-child(4) {
-    background-color: var(--orange);
+.galerie-mini-item span {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.3rem 0.5rem;
 }
 
-/* =============================================
-       FOOTER
-    ============================================= */
+/* Un footer m'hai capitu */
 footer {
     background-color: var(--noir);
     color: var(--creme);
@@ -603,12 +570,9 @@ footer {
     color: var(--jaune);
 }
 
-/* =============================================
-       RESPONSIVE — Mobile first
-    ============================================= */
+/* MEDIAS QUERIES */
 @media (max-width: 768px) {
 
-    /* Nav mobile cachée par défaut */
     nav {
         display: none;
         position: fixed;
@@ -625,12 +589,10 @@ footer {
         display: flex;
     }
 
-    /* Burger visible */
     .burger {
         display: flex;
     }
 
-    /* Hero : 1 colonne */
     .hero {
         grid-template-columns: 1fr;
         min-height: auto;
@@ -646,7 +608,6 @@ footer {
         order: -1;
     }
 
-    /* Sections : 1 colonne */
     .section-concept {
         grid-template-columns: 1fr;
     }
@@ -655,7 +616,6 @@ footer {
         display: none;
     }
 
-    /* masquer l'étiquette verticale sur mobile */
     .concept-content {
         padding: 3rem 1.5rem;
     }

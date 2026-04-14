@@ -10,10 +10,7 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* =============================================
-       LAYOUT PRINCIPAL — Page de personnalisation
-       2 colonnes asymétriques : visuel large | panneau étroit
-    ============================================= */
+    /* layout principal avec les deux colonnes et leurs infos */
     .page-wrapper {
       padding-top: 60px;
       min-height: 100vh;
@@ -44,9 +41,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* =============================================
-       ZONE VISUELLE — Colonne gauche, prioritaire
-    ============================================= */
+    /* la colonne gauche */
     .zone-visuelle {
       position: relative;
       background-color: #e8e7e3;
@@ -135,9 +130,7 @@
       white-space: nowrap;
     }
 
-    /* =============================================
-       GALERIE DE COUPES — Entre le visuel et le footer
-    ============================================= */
+    /* galerie des coupes oversize, pas oversize, etc */
     .galerie-coupes {
       grid-column: 1 / -1;
       padding: 3rem 2.5rem;
@@ -180,7 +173,6 @@
       transition: scale 0.3s ease;
     }
 
-    /* Hover animation : zoom image + élévation */
     .galerie-item:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -220,9 +212,7 @@
       z-index: 2;
     }
 
-    /* =============================================
-       PANNEAU DE CONFIGURATION — Colonne droite
-    ============================================= */
+    /* CONFIGURER LE PRODUIT */
     .panneau-config {
       border-left: 1px solid #ddd;
       overflow-y: auto;
@@ -341,9 +331,7 @@
       color: var(--jaune);
     }
 
-    /* =============================================
-       SLIDER D'ÉPAISSEUR DES BANDES
-    ============================================= */
+    /* pour régler l'épaisseur des bandes oranges */
     .epaisseur-zone {
       display: flex;
       flex-direction: column;
@@ -414,9 +402,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* =============================================
-       SECTION PRIX ET PANIER
-    ============================================= */
+    /* section prix et panier */
     .panier-bloc {
       padding: 1.5rem;
       margin-top: auto;
@@ -484,9 +470,7 @@
       background-color: #2d8a4e;
     }
 
-    /* =============================================
-       FOOTER — Expansion correcte
-    ============================================= */
+    /* Un footer tamanta cusì*/
     footer {
       grid-column: 1 / -1;
       grid-row: 4;
@@ -527,9 +511,7 @@
       color: var(--orange);
     }
 
-    /* =============================================
-       RESPONSIVE — Mobile first
-    ============================================= */
+    /* MEDIAS QUERIES */
     @media (max-width: 768px) {
       nav {
         display: none;
@@ -600,7 +582,7 @@
 <body>
 
   <header>
-    <a href="index.html" class="logo">VIN<span>K</span>O</a>
+    <a href="index.html" class="logo">VINKO</a>
 
     <nav id="main-nav">
       <a href="index.html">Accueil</a>

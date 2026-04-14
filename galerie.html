@@ -11,9 +11,7 @@ aaaa
     <link rel="stylesheet" href="styles.css" />
 
     <style>
-        /* =============================================
-             GALERIE — Page complète
-        ============================================= */
+        /* galerie. */
         .galerie-wrapper {
             padding-top: 60px;
             min-height: 100vh;
@@ -41,9 +39,7 @@ aaaa
             max-width: 60ch;
         }
 
-        /* =============================================
-             GRILLE PRINCIPALE — Masonry responsive
-        ============================================= */
+        /* grille de la galerie. (très terre-à-terre avec mes commentaires, je sais, je sais)*/
         .galerie-grid-main {
             padding: 3rem 4rem;
             display: grid;
@@ -85,8 +81,8 @@ aaaa
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0) 0%,
-                    rgba(0, 0, 0, 0.4) 100%);
+                  rgba(0, 0, 0, 0) 0%,
+                  rgba(0, 0, 0, 0.4) 100%);
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -104,8 +100,8 @@ aaaa
             right: 0;
             padding: 1.5rem 1rem;
             background: linear-gradient(to top,
-                    rgba(0, 0, 0, 0.8) 0%,
-                    rgba(0, 0, 0, 0) 100%);
+                  rgba(0, 0, 0, 0.8) 0%,
+                  rgba(0, 0, 0, 0) 100%);
             color: var(--creme);
             z-index: 3;
             transform: translateY(20px);
@@ -131,9 +127,7 @@ aaaa
             letter-spacing: 0.1em;
         }
 
-        /* =============================================
-             MODAL LIGHTBOX
-        ============================================= */
+        /* modale avec l'oeuvre en zoomée et son nom*/
         .lightbox {
             display: none;
             position: fixed;
@@ -235,85 +229,51 @@ aaaa
             right: 1rem;
         }
 
-        /* =============================================
-             FOOTER
-        ============================================= */
-        footer {
-            background-color: var(--noir);
-            color: var(--creme);
-            padding: 3rem 4rem;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 2rem;
-            margin-top: auto;
-        }
-
-        .footer-slogan {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--creme);
-            opacity: 0.6;
-        }
-
-        .footer-slogan strong {
-            display: block;
-            font-size: 1.1rem;
-            opacity: 1;
-            color: var(--jaune);
-            letter-spacing: 0.1em;
-            margin-bottom: 0.3rem;
-        }
-
-        /* =============================================
-             RESPONSIVE — Mobile first
-        ============================================= */
+        /* MEDIAS QUERIES (une troisième fois)*/
         @media (max-width: 768px) {
             nav {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background-color: var(--noir);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
+               display: none;
+               position: fixed;
+               top: 60px;
+               left: 0;
+               right: 0;
+               background-color: var(--noir);
+               flex-direction: column;
+               padding: 2rem;
+               gap: 1.5rem;
             }
 
             nav.open {
-                display: flex;
+               display: flex;
             }
 
             .burger {
-                display: flex;
+               display: flex;
             }
 
             .galerie-header {
-                padding: 2rem 1.5rem 1.5rem;
+               padding: 2rem 1.5rem 1.5rem;
             }
 
             .galerie-header h1 {
-                font-size: clamp(1.5rem, 4vw, 2.5rem);
+               font-size: clamp(1.5rem, 4vw, 2.5rem);
             }
 
             .galerie-grid-main {
-                padding: 2rem 1.5rem;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
+               padding: 2rem 1.5rem;
+               grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+               gap: 1.5rem;
             }
 
             .lightbox-close,
             .lightbox-prev,
             .lightbox-next {
-                font-size: 1.5rem;
+               font-size: 1.5rem;
             }
 
             footer {
-                grid-template-columns: 1fr;
-                padding: 2rem 1.5rem;
+               grid-template-columns: 1fr;
+               padding: 2rem 1.5rem;
             }
         }
     </style>
@@ -322,7 +282,7 @@ aaaa
 <body>
 
     <header>
-        <a href="index.html" class="logo">VIN<span>K</span>O</a>
+        <a href="index.html" class="logo">VINKO</a>
 
         <nav id="main-nav">
             <a href="index.html">Accueil</a>
