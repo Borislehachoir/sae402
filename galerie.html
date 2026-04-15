@@ -1,282 +1,14 @@
-aaaa
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galerie — Vinko · Zerkalo</title>
+    <title>La Galerie</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
 
-    <style>
-        /* galerie. */
-        .galerie-wrapper {
-            padding-top: 60px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .galerie-header {
-            padding: 4rem 4rem 2rem;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .galerie-header h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        .galerie-header p {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.6;
-            max-width: 60ch;
-        }
-
-        /* grille de la galerie. (très terre-à-terre avec mes commentaires, je sais, je sais)*/
-        .galerie-grid-main {
-            padding: 3rem 4rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            flex: 1;
-        }
-
-        .galerie-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            aspect-ratio: 3/4;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #f0f0f0;
-        }
-
-        .galerie-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: scale 0.3s ease;
-        }
-
-        .galerie-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .galerie-card:hover img {
-            scale: 1.08;
-        }
-
-        /* Overlay gradient sur hover */
-        .galerie-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom,
-                  rgba(0, 0, 0, 0) 0%,
-                  rgba(0, 0, 0, 0.4) 100%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 2;
-        }
-
-        .galerie-card:hover::before {
-            opacity: 1;
-        }
-
-        .galerie-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 1rem;
-            background: linear-gradient(to top,
-                  rgba(0, 0, 0, 0.8) 0%,
-                  rgba(0, 0, 0, 0) 100%);
-            color: var(--creme);
-            z-index: 3;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .galerie-card:hover .galerie-info {
-            transform: translateY(0);
-        }
-
-        .galerie-titre {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
-        }
-
-        .galerie-annee {
-            font-size: 0.75rem;
-            opacity: 0.7;
-            letter-spacing: 0.1em;
-        }
-
-        /* modale avec l'oeuvre en zoomée et son nom*/
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .lightbox-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            max-height: 80vh;
-            max-width: 80vw;
-        }
-
-        .lightbox-info {
-            background-color: var(--noir);
-            color: var(--creme);
-            padding: 1.5rem 2rem;
-            width: 100%;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .lightbox-titre {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .lightbox-annee {
-            font-size: 0.85rem;
-            color: var(--orange);
-            letter-spacing: 0.1em;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--creme);
-            font-size: 2rem;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
-        }
-
-        .lightbox-close:hover {
-            opacity: 1;
-        }
-
-        .lightbox-prev,
-        .lightbox-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--creme);
-            border: none;
-            padding: 1rem 1.2rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .lightbox-prev:hover,
-        .lightbox-next:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .lightbox-prev {
-            left: 1rem;
-        }
-
-        .lightbox-next {
-            right: 1rem;
-        }
-
-        /* MEDIAS QUERIES (une troisième fois)*/
-        @media (max-width: 768px) {
-            nav {
-               display: none;
-               position: fixed;
-               top: 60px;
-               left: 0;
-               right: 0;
-               background-color: var(--noir);
-               flex-direction: column;
-               padding: 2rem;
-               gap: 1.5rem;
-            }
-
-            nav.open {
-               display: flex;
-            }
-
-            .burger {
-               display: flex;
-            }
-
-            .galerie-header {
-               padding: 2rem 1.5rem 1.5rem;
-            }
-
-            .galerie-header h1 {
-               font-size: clamp(1.5rem, 4vw, 2.5rem);
-            }
-
-            .galerie-grid-main {
-               padding: 2rem 1.5rem;
-               grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-               gap: 1.5rem;
-            }
-
-            .lightbox-close,
-            .lightbox-prev,
-            .lightbox-next {
-               font-size: 1.5rem;
-            }
-
-            footer {
-               grid-template-columns: 1fr;
-               padding: 2rem 1.5rem;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -300,72 +32,73 @@ aaaa
 
         <div class="galerie-header">
             <h1>Galerie</h1>
-            <p>Explorez l'œuvre de Laszlo Moholy-Nagy — source d'inspiration directe de la collection Zerkalo. Cliquez sur une œuvre pour l'agrandir.</p>
+            <p>Explorez l'œuvre de Laszlo Moholy-Nagy — source d'inspiration directe de la collection Zerkalo. Cliquez
+                sur une œuvre pour l'agrandir.</p>
         </div>
 
         <div class="galerie-grid-main">
             <div class="galerie-card" data-index="0">
-            <img src="img/composition1923.jpg" alt="Composition, 1923" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Composition</div>
-                <div class="galerie-annee">1923</div>
-            </div>
+                <img src="img/composition1923.jpg" alt="Composition, 1923" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Composition</div>
+                    <div class="galerie-annee">1923</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="1">
-            <img src="img/spacemodulator.jpg" alt="Space Modulator, 1940" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Space Modulator</div>
-                <div class="galerie-annee">1940</div>
-            </div>
+                <img src="img/spacemodulator.jpg" alt="Space Modulator, 1940" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Space Modulator</div>
+                    <div class="galerie-annee">1940</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="2">
-            <img src="img/kvii.jpg" alt="K VII, 1922" />
-            <div class="galerie-info">
-                <div class="galerie-titre">K VII</div>
-                <div class="galerie-annee">1922</div>
-            </div>
+                <img src="img/kvii.jpg" alt="K VII, 1922" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">K VII</div>
+                    <div class="galerie-annee">1922</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="3">
-            <img src="img/radiorailway.jpg" alt="Large Railway, 1920" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Large Railway</div>
-                <div class="galerie-annee">1920</div>
-            </div>
+                <img src="img/radiorailway.jpg" alt="Radio Railway, 1920" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Radio Railway</div>
+                    <div class="galerie-annee">1920</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="4">
-            <img src="img/composition1927.jpg" alt="Composition, 1927" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Composition</div>
-                <div class="galerie-annee">1927</div>
-            </div>
+                <img src="img/composition1927.jpg" alt="Composition, 1927" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Composition</div>
+                    <div class="galerie-annee">1927</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="5">
-            <img src="img/photogram1922.jpg" alt="Photogram, 1922" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Photogram</div>
-                <div class="galerie-annee">1922</div>
-            </div>
+                <img src="img/photogram1922.jpg" alt="Photogram, 1922" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Photogram</div>
+                    <div class="galerie-annee">1922</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="6">
-            <img src="img/abstractcompo1925.jpg" alt="Abstract Composition, 1925" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Abstract Composition</div>
-                <div class="galerie-annee">1925</div>
-            </div>
+                <img src="img/abstractcompo1925.jpg" alt="Abstract Composition, 1925" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Abstract Composition</div>
+                    <div class="galerie-annee">1925</div>
+                </div>
             </div>
 
             <div class="galerie-card" data-index="7">
-            <img src="img/rhoga.jpg" alt="Rho + Ga CH 1, 1938" />
-            <div class="galerie-info">
-                <div class="galerie-titre">Rho + Ga CH 1</div>
-                <div class="galerie-annee">1938</div>
-            </div>
+                <img src="img/rhoga.jpg" alt="Rho + Ga CH 1, 1938" />
+                <div class="galerie-info">
+                    <div class="galerie-titre">Rho + Ga CH 1</div>
+                    <div class="galerie-annee">1938</div>
+                </div>
             </div>
         </div>
 
@@ -398,7 +131,7 @@ aaaa
             { titre: 'Composition', annee: '1923', src: 'img/composition1923.jpg' },
             { titre: 'Space Modulator', annee: '1940', src: 'img/spacemodulator.jpg' },
             { titre: 'K VII', annee: '1922', src: 'img/kvii.jpg' },
-            { titre: 'Large Railway', annee: '1920', src: 'img/radiorailway.jpg' },
+            { titre: 'Radio Railway', annee: '1920', src: 'img/radiorailway.jpg' },
             { titre: 'Composition', annee: '1927', src: 'img/composition1927.jpg' },
             { titre: 'Photogram', annee: '1922', src: 'img/photogram1922.jpg' },
             { titre: 'Abstract Composition', annee: '1925', src: 'img/abstractcompo1925.jpg' },
