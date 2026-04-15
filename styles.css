@@ -21,6 +21,26 @@
     padding: 0;
 }
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f5c800;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #f5c800;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c85a00;
+    border-radius: 4px;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -35,7 +55,6 @@ body {
 /*Header*/
 header {
     position: fixed;
-    /* reste visible en scrollant */
     top: 0;
     left: 0;
     right: 0;
@@ -112,7 +131,7 @@ nav a:hover::after {
     transition: var(--transition);
 }
 
-/* le main */
+/* LE MAAAAAAAAAAAAAAIN (d'où hero... main protagonist...tabasser du dragon avec des peintures de picasso, ânonner du Jul jusqu'à ce qu'il give up, manger du Justin Bridou..bref, la routine quoi.)*/
 .hero {
     min-height: 100vh;
     padding-top: 60px;
@@ -521,7 +540,7 @@ nav a:hover::after {
 }
 
 /* Galerie zerkalo.html (page pour personaliser le produit) */
-/* layout principal avec les deux colonnes et leurs infos */
+
 .page-wrapper {
     padding-top: 60px;
     min-height: 100vh;
@@ -982,8 +1001,6 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* Galerie de la page galerie.html */
-
-/* galerie. */
 .galerie-wrapper {
     padding-top: 60px;
     min-height: 100vh;
@@ -1199,6 +1216,132 @@ input[type="range"]::-moz-range-thumb {
 
 .lightbox-next {
     right: 1rem;
+}
+
+
+/* Page A propos */
+
+.apropos-content {
+    padding: 3rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.apropos-section {
+    margin-bottom: 3rem;
+}
+
+.apropos-section p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+.apropos-values {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.apropos-values li {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.apropos-values li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 8px;
+    height: 8px;
+    background-color: var(--orange);
+}
+
+/* Portrait Moholy-Nagy */
+.apropos-portrait {
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.apropos-portrait img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(100%);
+}
+
+.apropos-portrait-caption {
+    background-color: var(--noir);
+    color: var(--creme);
+    padding: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.moholy {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+/* Peinture Ki */
+.apropos-artwork {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f5f3f0;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apropos-artwork img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.apropos-artwork-caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    letter-spacing: 0.05em;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .apropos-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .apropos-section h2 {
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    }
+
+    .apropos-values li {
+        padding-left: 1.25rem;
+    }
+
+    .apropos-portrait,
+    .apropos-artwork {
+        max-width: 100%;
+    }
 }
 
 /* Un footer m'hai capitu */

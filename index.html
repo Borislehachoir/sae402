@@ -12,22 +12,16 @@
 
 <body>
 
-    <!-- =============================================
-       HEADER PARTAGÉ — même sur toutes les pages
-  ============================================= -->
     <header>
-        <!-- Logo Vinko : le K est accentué en jaune (clé visuelle) -->
         <a href="index.html" class="logo">VINKO</a>
 
-        <!-- Navigation principale -->
         <nav id="main-nav">
-            <a href="index.html">Accueil</a>
-            <a href="zerkalo.html">Personnaliser</a>
-            <a href="galerie.html">Galerie</a>
-            <a href="apropos.html">À propos</a>
+            <a href="index.html" class="lien1">Accueil</a>
+            <a href="zerkalo.html" class="lien2">~Vinko Zerkalo~</a>
+            <a href="galerie.html" class="lien1">Galerie</a>
+            <a href="apropos.html" class="lien2">À propos</a>
         </nav>
 
-        <!-- Bouton burger pour mobile -->
         <button class="burger" id="burger" aria-label="Menu">
             <span></span>
             <span></span>
@@ -35,17 +29,12 @@
         </button>
     </header>
 
-    <!-- =============================================
-       HERO — Présentation du produit Zerkalo
-  ============================================= -->
+    <!-- HELLO THIS IS THE VINKO PRESENTATION HOW ARE YOU DOING-->
     <section class="hero" id="accueil">
 
-        <!-- Colonne texte -->
         <div class="hero-text">
-            <!-- Étiquette : collection + référence constructiviste -->
-            <p class="hero-label">Vinko Studio</p>
+            <p class="hero-label">Vinko</p>
 
-            <!-- Titre principal avec accent de couleur -->
             <h1 class="hero-title">
                 ZER<br>
                 <span class="accent">KAL</span><br>
@@ -58,7 +47,6 @@
                 composition. Personnalisez le vôtre.
             </p>
 
-            <!-- Appels à l'action -->
             <div class="hero-cta">
                 <a href="zerkalo.html" class="btn-primary">Personnaliser</a>
                 <a href="galerie.html" class="btn-secondary">Voir la galerie</a>
@@ -69,7 +57,6 @@
         <div class="hero-image">
             <img src="img/sweat-oversize.jpg" alt="Sweatshirt Zerkalo — coupe oversized" />
 
-            <!-- Badge prix flottant -->
             <div class="hero-badge">
                 À partir de
                 <strong>55 €</strong>
@@ -78,15 +65,10 @@
         </div>
     </section>
 
-    <!-- Bande de séparation décorative -->
     <div class="bande-deco"></div>
 
-    <!-- =============================================
-       SECTION CONCEPT — Présentation de la marque
-  ============================================= -->
     <section class="section-concept">
 
-        <!-- Étiquette latérale verticale (desktop seulement) -->
         <div class="concept-label">
             <h2>Notre Concept</h2>
         </div>
@@ -106,24 +88,20 @@
     <section class="section-produit">
         <p class="section-title">Le produit — Trois coupes</p>
 
-        <!-- Grille des coupes -->
         <div class="coupe-grid">
 
-            <!-- Coupe Oversized -->
             <article class="coupe-card">
                 <img src="img/sweat-oversize.jpg" alt="Coupe Oversized" />
                 <h3 class="coupe-name">Oversized</h3>
                 <p class="coupe-prix">65 €</p>
             </article>
 
-            <!-- Coupe Standard -->
             <article class="coupe-card">
                 <img src="img/sweat-normal.png" alt="Coupe Standard" />
                 <h3 class="coupe-name">Standard</h3>
                 <p class="coupe-prix">55 €</p>
             </article>
 
-            <!-- Coupe Cropped -->
             <article class="coupe-card">
                 <img src="img/sweat-slim.png" alt="Coupe Cropped" />
                 <h3 class="coupe-name">Cropped</h3>
@@ -132,12 +110,8 @@
         </div>
     </section>
 
-    <!-- =============================================
-       SECTION MARQUE — Inspiration
-  ============================================= -->
     <section class="section-marque">
 
-        <!-- Composition géométrique décorative -->
         <div class="marque-visuel">
             <div class="moholy-composition">
                 <div class="cercle"></div>
@@ -146,7 +120,6 @@
             </div>
         </div>
 
-        <!-- Texte d'inspiration -->
         <div class="marque-texte">
             <h2>Contempler,<br>rêver, s'inspirer.</h2>
             <p>
@@ -159,9 +132,6 @@
         </div>
     </section>
 
-    <!-- =============================================
-       SECTION GALERIE PREVIEW
-  ============================================= -->
     <section class="section-galerie-preview">
         <div class="galerie-preview-text">
             <h2>L'œuvre source</h2>
@@ -171,7 +141,6 @@
             </p>
         </div>
 
-        <!-- Miniatures avec images réelles -->
         <div class="galerie-mini">
             <div class="galerie-mini-item">
                 <img src="img/composition1923.jpg" alt="Composition, 1923" />
@@ -194,9 +163,6 @@
         <a href="galerie.html" class="btn-primary">Voir la galerie complète</a>
     </section>
 
-    <!-- =============================================
-       FOOTER PARTAGÉ
-  ============================================= -->
     <footer>
         <div class="footer-slogan">
             <strong>Vinko</strong>
@@ -204,9 +170,6 @@
         </div>
     </footer>
 
-    <!-- =============================================
-       JAVASCRIPT — Menu burger mobile
-  ============================================= -->
     <script>
         // Sélection des éléments du DOM
         const burger = document.getElementById('burger');
