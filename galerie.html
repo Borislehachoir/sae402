@@ -38,7 +38,7 @@
 
         <div class="galerie-grid-main">
             <div class="galerie-card" data-index="0">
-                <img src="img/composition1923.jpg" alt="Composition, 1923" />
+                <img src="img/composition1923.webp" alt="Composition, 1923" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Composition</div>
                     <div class="galerie-annee">1923</div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="galerie-card" data-index="1">
-                <img src="img/spacemodulator.jpg" alt="Space Modulator, 1940" />
+                <img src="img/spacemodulator.webp" alt="Space Modulator, 1940" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Space Modulator</div>
                     <div class="galerie-annee">1940</div>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="galerie-card" data-index="2">
-                <img src="img/kvii.jpg" alt="K VII, 1922" />
+                <img src="img/kvii.webp" alt="K VII, 1922" />
                 <div class="galerie-info">
                     <div class="galerie-titre">K VII</div>
                     <div class="galerie-annee">1922</div>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="galerie-card" data-index="3">
-                <img src="img/radiorailway.jpg" alt="Radio Railway, 1920" />
+                <img src="img/radiorailway.webp" alt="Radio Railway, 1920" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Radio Railway</div>
                     <div class="galerie-annee">1920</div>
@@ -70,7 +70,7 @@
             </div>
 
             <div class="galerie-card" data-index="4">
-                <img src="img/composition1927.jpg" alt="Composition, 1927" />
+                <img src="img/composition1927.webp" alt="Composition, 1927" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Composition</div>
                     <div class="galerie-annee">1927</div>
@@ -78,7 +78,7 @@
             </div>
 
             <div class="galerie-card" data-index="5">
-                <img src="img/photogram1922.jpg" alt="Photogram, 1922" />
+                <img src="img/photogram1922.webp" alt="Photogram, 1922" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Photogram</div>
                     <div class="galerie-annee">1922</div>
@@ -86,7 +86,7 @@
             </div>
 
             <div class="galerie-card" data-index="6">
-                <img src="img/abstractcompo1925.jpg" alt="Abstract Composition, 1925" />
+                <img src="img/abstractcompo1925.webp" alt="Abstract Composition, 1925" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Abstract Composition</div>
                     <div class="galerie-annee">1925</div>
@@ -94,7 +94,7 @@
             </div>
 
             <div class="galerie-card" data-index="7">
-                <img src="img/rhoga.jpg" alt="Rho + Ga CH 1, 1938" />
+                <img src="img/rhoga.webp" alt="Rho + Ga CH 1, 1938" />
                 <div class="galerie-info">
                     <div class="galerie-titre">Rho + Ga CH 1</div>
                     <div class="galerie-annee">1938</div>
@@ -129,78 +129,6 @@
     </div>
 
     <script>
-        const gallery = [
-            { titre: 'Composition', annee: '1923', src: 'img/composition1923.jpg' },
-            { titre: 'Space Modulator', annee: '1940', src: 'img/spacemodulator.jpg' },
-            { titre: 'K VII', annee: '1922', src: 'img/kvii.jpg' },
-            { titre: 'Radio Railway', annee: '1920', src: 'img/radiorailway.jpg' },
-            { titre: 'Composition', annee: '1927', src: 'img/composition1927.jpg' },
-            { titre: 'Photogram', annee: '1922', src: 'img/photogram1922.jpg' },
-            { titre: 'Abstract Composition', annee: '1925', src: 'img/abstractcompo1925.jpg' },
-            { titre: 'Rho + Ga CH 1', annee: '1938', src: 'img/rhoga.jpg' }
-        ];
-
-        let currentIndex = 0;
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxTitre = document.getElementById('lightbox-titre');
-        const lightboxAnnee = document.getElementById('lightbox-annee');
-        const lightboxClose = document.getElementById('lightbox-close');
-        const lightboxPrev = document.getElementById('lightbox-prev');
-        const lightboxNext = document.getElementById('lightbox-next');
-        const cards = document.querySelectorAll('.galerie-card');
-
-        function openLightbox(index) {
-            currentIndex = index;
-            const item = gallery[index];
-            lightboxImg.src = item.src;
-            lightboxTitre.textContent = item.titre;
-            lightboxAnnee.textContent = item.annee;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const index = parseInt(card.dataset.index);
-                openLightbox(index);
-            });
-        });
-
-        lightboxClose.addEventListener('click', closeLightbox);
-
-        lightboxPrev.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-            const item = gallery[currentIndex];
-            lightboxImg.src = item.src;
-            lightboxTitre.textContent = item.titre;
-            lightboxAnnee.textContent = item.annee;
-        });
-
-        lightboxNext.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % gallery.length;
-            const item = gallery[currentIndex];
-            lightboxImg.src = item.src;
-            lightboxTitre.textContent = item.titre;
-            lightboxAnnee.textContent = item.annee;
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') lightboxPrev.click();
-            if (e.key === 'ArrowRight') lightboxNext.click();
-        });
 
         const burger = document.getElementById('burger');
         const nav = document.getElementById('main-nav');

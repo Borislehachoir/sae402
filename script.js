@@ -169,3 +169,77 @@ setTimeout(() => {
 sliderEpaisseur.dispatchEvent(new Event('input'));
 
 
+/* Variables pour les interactions avec la galerie (galerie.html) */
+
+ const gallery = [
+            { titre: 'Composition', annee: '1923', src: 'img/composition1923.jpg' },
+            { titre: 'Space Modulator', annee: '1940', src: 'img/spacemodulator.jpg' },
+            { titre: 'K VII', annee: '1922', src: 'img/kvii.jpg' },
+            { titre: 'Radio Railway', annee: '1920', src: 'img/radiorailway.jpg' },
+            { titre: 'Composition', annee: '1927', src: 'img/composition1927.jpg' },
+            { titre: 'Photogram', annee: '1922', src: 'img/photogram1922.jpg' },
+            { titre: 'Abstract Composition', annee: '1925', src: 'img/abstractcompo1925.jpg' },
+            { titre: 'Rho + Ga CH 1', annee: '1938', src: 'img/rhoga.jpg' }
+        ];
+
+        let currentIndex = 0;
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitre = document.getElementById('lightbox-titre');
+        const lightboxAnnee = document.getElementById('lightbox-annee');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const cards = document.querySelectorAll('.galerie-card');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item = gallery[index];
+            lightboxImg.src = item.src;
+            lightboxTitre.textContent = item.titre;
+            lightboxAnnee.textContent = item.annee;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.index);
+                openLightbox(index);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightboxPrev.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+            const item = gallery[currentIndex];
+            lightboxImg.src = item.src;
+            lightboxTitre.textContent = item.titre;
+            lightboxAnnee.textContent = item.annee;
+        });
+
+        lightboxNext.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % gallery.length;
+            const item = gallery[currentIndex];
+            lightboxImg.src = item.src;
+            lightboxTitre.textContent = item.titre;
+            lightboxAnnee.textContent = item.annee;
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') lightboxPrev.click();
+            if (e.key === 'ArrowRight') lightboxNext.click();
+        });
