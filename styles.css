@@ -545,7 +545,8 @@ nav a:hover::after {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 380px;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    grid-row: 1;
 }
 
 .page-header {
@@ -580,6 +581,7 @@ nav a:hover::after {
     justify-content: center;
     padding: 40px;
     min-height: 700px;
+     grid-row: 2; 
 }
 
 .bg-contexte {
@@ -666,6 +668,7 @@ nav a:hover::after {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     background-color: #faf9f5;
+     grid-row: 3; 
 }
 
 .galerie-coupes h2 {
@@ -749,6 +752,7 @@ nav a:hover::after {
     display: flex;
     flex-direction: column;
     grid-column: 2;
+        grid-row: 2; 
 }
 
 .config-bloc {
