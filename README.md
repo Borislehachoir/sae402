@@ -1,9 +1,14 @@
 # Traçabilité IA — Projet Vinko / Zerkalo
 
-# NOM :
-# PRENOM :
-# URL GIT REPO : 
-# URL GIT PAGE : 
+# Informations sur l'étudiant : 
+## NOM :
+Rocchietti
+## PRENOM :
+Boris
+## URL GIT REPO : 
+<https://github.com/Borislehachoir/sae402>
+## URL GIT PAGE : 
+<https://borislehachoir.github.io/sae402/>
 
 ## TÂCHE #01 : Génération de la page d'accueil (index.html)
 
