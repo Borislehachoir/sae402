@@ -1,6 +1,9 @@
 # Traçabilité IA — Projet Vinko / Zerkalo
 
----
+# NOM :
+# PRENOM :
+# URL GIT REPO : 
+# URL GIT PAGE : 
 
 ## TÂCHE #01 : Génération de la page d'accueil (index.html)
 
